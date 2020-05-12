@@ -4,6 +4,7 @@ import PlaygroundSupport
 import UIKit
 import SpriteKit
 import GameplayKit
+import SceneKit
 
 let BallCategoryName = "ball"
 let PaddleCategoryName = "paddle"
@@ -17,40 +18,29 @@ let PaddleCategory : UInt32 = 0x1 << 4
 let BorderCategory : UInt32 = 0x1 << 5
 
 let sceneView = SKView(frame: CGRect(x:0 , y: 0, width: 414, height: 736))
-let myView = UIView(frame: CGRect(x: 0, y: 0, width: 414, height: 175))
-var testView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-testView.image = UIImage(named: "block.png")
+let catalogview = UIView(frame: CGRect(x: 0, y: 0, width: 414, height: 736))
 
-class ViewController: UIViewController {
-    override func loadView() {
-        
-        if let scene = GameScene(fileNamed: "GameScene") {
-            // Set the scale mode to scale to fit the window
-            scene.scaleMode = .aspectFill
-            
-            myView.backgroundColor = .white
-            sceneView.addSubview(myView)
-            myView.addSubview(testView)
-
-            // Present the scene
-            sceneView.presentScene(scene)
-        }
-    }
-    
-}
+let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 20))
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
+    var coinPoints: Int = 0
+    var catalogTouched: Bool = false
+    
     var isFingerOnPaddle = false
+    var coins = SKLabelNode(fontNamed: "SF Pro Rounded")
     
     private var label : SKLabelNode!
     private var spinnyNode : SKShapeNode!
+    
+    
     
     lazy var gameState: GKStateMachine = GKStateMachine(states: [
     WaitingForTap(scene: self),
     Playing(scene: self),
     GameOver(scene: self)])
+
     
     var gameWon : Bool = false {
       didSet {
@@ -91,6 +81,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BlockCategory {
             run(bambooBreakSound)
             breakBlock(secondBody.node!)
+            coinPoints += Int.random(in: 3...5)
+            coins.text = String(coinPoints)
+            
+            print(coinPoints)
             if isGameWon() {
               gameState.enter(GameOver.self)
               gameWon = true
@@ -106,7 +100,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    
     override func didMove(to view: SKView) {
+        catalogview.isHidden = true
+        
+        backButton.setTitle("Go Back", for: .normal)
+        backButton.backgroundColor = .black
+        backButton.tintColor = .white
+        backButton.addTarget(self, action: #selector(backButtonPressed(_:)), for: .touchUpInside)
+        
+        
+        
+        coins.text = String(coinPoints)
+        coins.fontSize = 36
+        coins.fontColor = SKColor.white
+        coins.position = CGPoint(x: frame.width * 0.9, y: frame.height * 0.92)
+        coins.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
+
+        addChild(coins)
+        
+        goToCatalogButton()
+        
         
         let border = childNode(withName: "collision_test") as! SKSpriteNode
         let borderBody = SKPhysicsBody(edgeLoopFrom: border.frame)
@@ -175,15 +189,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        for touch in touches {
+            if touch == touches.first {
+                enumerateChildNodes(withName: "//*", using: {(node, stop) in
+                    if node.name == "catalogButton" {
+                        print("catalog touched")
+                        if node.contains(touch.location(in: self)) {
+                            self.gameState.enter(WaitingForTap.self)
+                            catalogview.isHidden = false
+                            self.catalogTouched = true
+                        }
+                    }
+                })
+            }
+        }
+        
         switch gameState.currentState {
         case is WaitingForTap:
-          gameState.enter(Playing.self)
-          isFingerOnPaddle = true
+            if catalogTouched {
+                print("catalogue is active")
+            }
+            else {
+              gameState.enter(Playing.self)
+              isFingerOnPaddle = true
+            }
             
         case is Playing:
           let touch = touches.first
           let touchLocation = touch!.location(in: self)
-            
           if let body = physicsWorld.body(at: touchLocation) {
             if body.node!.name == PaddleCategoryName {
               isFingerOnPaddle = true
@@ -199,6 +233,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         default:
           break
         }
+        
+        //click button
+        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -228,6 +265,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //MARK: Helpers
     
+    @objc func backButtonPressed(_ sender: UIButton!){
+        catalogTouched = false
+        catalogview.isHidden = true
+    }
+    
+    func goToCatalogButton(){
+        let catalogButton = SKSpriteNode(imageNamed: "ball")
+        catalogButton.name = "catalogButton"
+        catalogButton.position = CGPoint(x: frame.width * 0.1, y: frame.height * 0.94)
+        addChild(catalogButton)
+    }
+    
     func breakBlock(_ node: SKNode){
         let particles = SKEmitterNode(fileNamed: "BrokenPlatform")!
         particles.position = node.position
@@ -252,8 +301,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       return numberOfBricks == 0
     }
 }
-
-//MARK: ViewController
 
 
 
@@ -358,17 +405,15 @@ class GameOver: GKState {
   override func isValidNextState(_ stateClass: AnyClass) -> Bool {
     return stateClass is WaitingForTap.Type
   }
-  
 }
 
 if let scene = GameScene(fileNamed: "GameScene") {
     // Set the scale mode to scale to fit the window
     scene.scaleMode = .aspectFill
-    
-    myView.backgroundColor = .white
-    sceneView.addSubview(myView)
-    myView.addSubview(testView)
-
+    catalogview.backgroundColor = .white
+    catalogview.addSubview(backButton)
+    //add catalog
+    sceneView.addSubview(catalogview)
     // Present the scene
     sceneView.presentScene(scene)
 }
