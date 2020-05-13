@@ -56,6 +56,11 @@ paddleImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
 catalogview.addSubview(paddle1)
 paddle1.addSubview(paddleImage1)
 
+let block1 = UIButton(frame: CGRect(x: 60, y: 600, width: 200, height: 50))
+let blockImage1 = UIImageView(image: UIImage(named: "paddle"))
+blockImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
+catalogview.addSubview(block1)
+block1.addSubview(blockImage1)
 
 description1()
 description2()
@@ -200,6 +205,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background2.addTarget(self, action: #selector(jakartaFair), for: .touchUpInside)
         
         paddle1.addTarget(self, action: #selector(kueLapisPressed), for: .touchUpInside)
+        
         
         backButton.setTitle("Back", for: .normal)
         backButton.backgroundColor = .black
