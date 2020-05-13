@@ -23,22 +23,24 @@ catalogview.setContentOffset(CGPoint(x: 1000, y: 1024), animated: true)
 
 let backButton = UIButton(frame: CGRect(x: 10, y: 10, width: 50, height: 20))
 
-let background = UIButton(frame: CGRect(x: 60, y: 60, width: 200, height: 250))
-//background.setImage(UIImage(named: "paddle"), for: .normal)
+let background1 = UIButton(frame: CGRect(x: 60, y: 60, width: 200, height: 250))
+let bgImage1 = UIImageView(image: UIImage(named: "paddle"))
+bgImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
+catalogview.addSubview(background1)
+background1.addSubview(bgImage1)
 
-let background1 = UIImageView(image: UIImage(named: "paddle"))
-background1.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
-catalogview.addSubview(background)
-background.addSubview(background1)
-
-
-let background2 = UIImageView(image: UIImage(named: "paddle"))
-background2.frame = CGRect(x: 280, y: 60, width: 200, height: 250)
+let background2 = UIButton(frame: CGRect(x: 280, y: 60, width: 200, height: 250))
+let bgImage2 = UIImageView(image: UIImage(named: "paddle"))
+bgImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background2)
+background2.addSubview(bgImage2)
 
-let background3 = UIImageView(image: UIImage(named: "paddle"))
-background3.frame = CGRect(x: 500, y: 60, width: 200, height: 250)
+
+let background3 = UIButton(frame: CGRect(x: 500, y: 60, width: 200, height: 250))
+let bgImage3 = UIImageView(image: UIImage(named: "paddle"))
+bgImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background3)
+background3.addSubview(bgImage3)
 
 description1()
 description2()
@@ -160,7 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         catalogview.isHidden = true
         
-        background.addTarget(self, action: #selector(imagePressed), for: .touchUpInside)
+        background1.addTarget(self, action: #selector(imagePressed), for: .touchUpInside)
         
         
         backButton.setTitle("Back", for: .normal)
