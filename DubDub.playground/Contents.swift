@@ -19,12 +19,20 @@ let BorderCategory : UInt32 = 0x1 << 5
 
 let sceneView = SKView(frame: CGRect(x:0 , y: 0, width: 768, height: 1024))
 let catalogview = UIScrollView(frame: CGRect(x: 0, y: 0, width: 768, height: 1024))
-catalogview.setContentOffset(CGPoint(x: 1000, y: 1024), animated: true)
+catalogview.setContentOffset(CGPoint(x: 768, y: 2000), animated: true)
 
 let backButton = UIButton(frame: CGRect(x: 10, y: 10, width: 50, height: 20))
 
+
+let pickABackground = UILabel(frame: CGRect(x: sceneView.frame.width / 2 - 100, y: 25, width: 200, height: 20))
+pickABackground.tintColor = .black
+pickABackground.text = "Pick Your Environment"
+pickABackground.textAlignment = .center
+catalogview.addSubview(pickABackground)
+
+
 let background1 = UIButton(frame: CGRect(x: 60, y: 60, width: 200, height: 250))
-let bgImage1 = UIImageView(image: UIImage(named: "paddle"))
+let bgImage1 = UIImageView(image: UIImage(named: "Glodok.jpg"))
 bgImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background1)
 background1.addSubview(bgImage1)
@@ -42,8 +50,16 @@ bgImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background3)
 background3.addSubview(bgImage3)
 
+let paddle1 = UIButton(frame: CGRect(x: 60, y: 500, width: 200, height: 50))
+let paddleImage1 = UIImageView(image: UIImage(named: "block"))
+paddleImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
+catalogview.addSubview(paddle1)
+paddle1.addSubview(paddleImage1)
+
+
 description1()
 description2()
+description3()
 
 func description1(){
     //Glodok
@@ -52,7 +68,7 @@ func description1(){
     title.text = "Glodok Market"
     title.font = UIFont(name: "Avenir-Heavy", size: 20)
     desc.font = UIFont(name: "Avenir", size: 12)
-    desc.text = "A local traditional market located in Indonesia's biggest chinatown: Glodok, Jakarta. Glodok Market sells a bunch of things ranging from fashionable clothes to traditional medicine. But they're most known for their huge variety of chinese cuisine."
+    desc.text = "A local traditional market located in Indonesia's biggest chinatown: Glodok, Jakarta. Glodok Market sells a bunch of things ranging from fashionable clothes to traditional medicine. But they're most known for their huge variety of indo-chinese cuisine."
     desc.lineBreakMode = NSLineBreakMode.byWordWrapping
     desc.numberOfLines = 0
         
@@ -64,6 +80,24 @@ func description1(){
 func description2(){
     //Floating Market
     let title = UILabel(frame: CGRect(x: 280, y: 280, width: 200, height: 100))
+    let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
+    
+    title.text = "Suryakencana Street"
+    title.font = UIFont(name: "Avenir-Heavy", size: 20)
+    desc.font = UIFont(name: "Avenir", size: 12)
+    
+    desc.text = "Located in Bogor. This place comes alive and filled with lots of unique Indonesian street food during night time. It's a very popular spot for Indonesian youths to hang out to pass the time."
+    
+    desc.lineBreakMode = NSLineBreakMode.byWordWrapping
+    desc.numberOfLines = 0
+    
+    catalogview.addSubview(title)
+    title.addSubview(desc)
+}
+
+func description3(){
+    //Floating Market
+    let title = UILabel(frame: CGRect(x: 500, y: 280, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
     
     title.text = "Floating Market"
@@ -80,7 +114,6 @@ func description2(){
 }
 
 
-
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var coinPoints: Int = 0
@@ -93,6 +126,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var spinnyNode : SKShapeNode!
     
     var borderBg: SKSpriteNode!
+    var paddleBg: SKSpriteNode!
     
     lazy var gameState: GKStateMachine = GKStateMachine(states: [
     WaitingForTap(scene: self),
@@ -162,8 +196,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         catalogview.isHidden = true
         
-        background1.addTarget(self, action: #selector(imagePressed), for: .touchUpInside)
+        background1.addTarget(self, action: #selector(glodokPressed), for: .touchUpInside)
+        background2.addTarget(self, action: #selector(jakartaFair), for: .touchUpInside)
         
+        paddle1.addTarget(self, action: #selector(kueLapisPressed), for: .touchUpInside)
         
         backButton.setTitle("Back", for: .normal)
         backButton.backgroundColor = .black
@@ -209,6 +245,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         let paddle = childNode(withName: PaddleCategoryName) as! SKSpriteNode
+        paddleBg = paddle
         
         bottom.physicsBody!.categoryBitMask = BottomCategory
         ball.physicsBody!.categoryBitMask = BallCategory
@@ -334,9 +371,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         catalogview.isHidden = true
     }
     
-    @objc func imagePressed(_ sender: UIButton!) {
+    @objc func glodokPressed(_ sender: UIButton!) {
         print("pressed Glodok")
-        borderBg.texture = SKTexture(imageNamed: "ball")
+        borderBg.texture = SKTexture(imageNamed: "Glodok.jpg")
+    }
+    
+    @objc func jakartaFair(_ sender: UIButton!) {
+        print("pressed Jakarta Fair")
+    }
+    
+    @objc func kueLapisPressed(_ sender: UIButton!) {
+        print("Kue lapis pressed")
+        paddleBg.texture = SKTexture(imageNamed: "block")
     }
     
     func goToCatalogButton(){
