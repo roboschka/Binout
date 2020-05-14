@@ -19,7 +19,7 @@ let BorderCategory : UInt32 = 0x1 << 5
 
 let sceneView = SKView(frame: CGRect(x:0 , y: 0, width: 768, height: 1024))
 let catalogview = UIScrollView(frame: CGRect(x: 0, y: 0, width: 768, height: 1024))
-catalogview.setContentOffset(CGPoint(x: 768, y: 2000), animated: true)
+catalogview.contentSize = CGSize(width: 768, height: 2000)
 
 let backButton = UIButton(frame: CGRect(x: 10, y: 10, width: 50, height: 20))
 
@@ -50,13 +50,19 @@ bgImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background3)
 background3.addSubview(bgImage3)
 
-let paddle1 = UIButton(frame: CGRect(x: 60, y: 500, width: 200, height: 50))
-let paddleImage1 = UIImageView(image: UIImage(named: "block"))
-paddleImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
+let paddle1 = UIButton(frame: CGRect(x: 60, y: 500, width: 200, height: 100))
+let paddleImage1 = UIImageView(image: UIImage(named: "pastel"))
+paddleImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 100 )
 catalogview.addSubview(paddle1)
 paddle1.addSubview(paddleImage1)
 
-let ball1 = UIButton(frame: CGRect(x: 60, y: 600, width: 200, height: 50))
+let paddle2 = UIButton(frame: CGRect(x: 280, y: 500, width: 200, height: 100))
+let paddleImage2 = UIImageView(image: UIImage(named: "pancong.png"))
+paddleImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
+catalogview.addSubview(paddle2)
+paddle2.addSubview(paddleImage2)
+
+let ball1 = UIButton(frame: CGRect(x: 60, y: 1000, width: 200, height: 50))
 let ballImage1 = UIImageView(image: UIImage(named: "paddle"))
 ballImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
 catalogview.addSubview(ball1)
@@ -390,7 +396,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func kueLapisPressed(_ sender: UIButton!) {
         print("Kue lapis paddle pressed")
-        paddleBg.texture = SKTexture(imageNamed: "block")
+        paddleBg.texture = SKTexture(imageNamed: "pastel")
     }
     
     @objc func ondeOndePressed(_ sender: UIButton!) {
