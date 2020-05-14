@@ -32,7 +32,7 @@ catalogview.addSubview(pickABackground)
 
 
 let background1 = UIButton(frame: CGRect(x: 60, y: 60, width: 200, height: 250))
-let bgImage1 = UIImageView(image: UIImage(named: "Glodok.jpg"))
+let bgImage1 = UIImageView(image: UIImage(named: "glodok.jpg"))
 bgImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background1)
 background1.addSubview(bgImage1)
@@ -62,15 +62,19 @@ paddleImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
 catalogview.addSubview(paddle2)
 paddle2.addSubview(paddleImage2)
 
-let ball1 = UIButton(frame: CGRect(x: 60, y: 1000, width: 200, height: 50))
-let ballImage1 = UIImageView(image: UIImage(named: "paddle"))
-ballImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
+let paddle3 = UIButton(frame: CGRect(x: 500, y: 500, width: 200, height: 100))
+let paddleImage3 = UIImageView(image: UIImage(named: "pisangijo"))
+paddleImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
+catalogview.addSubview(paddle3)
+paddle3.addSubview(paddleImage3)
+
+let ball1 = UIButton(frame: CGRect(x: 60, y: 1000, width: 200, height: 200))
+let ballImage1 = UIImageView(image: UIImage(named: "ondeonde.png"))
+ballImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
 catalogview.addSubview(ball1)
 ball1.addSubview(ballImage1)
 
-description1()
-description2()
-description3()
+
 
 func description1(){
     //Glodok
@@ -124,6 +128,50 @@ func description3(){
     title.addSubview(desc)
 }
 
+//MARK: Paddles area
+func description4(){
+    //Pastel
+    let title = UILabel(frame: CGRect(x: 60, y: 620, width: 200, height: 100))
+    let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
+    
+    title.text = "Pastel"
+    title.font = UIFont(name: "Avenir-Heavy", size: 20)
+    desc.font = UIFont(name: "Avenir", size: 12)
+    
+    desc.text = "Pastel is a very popular dish in Indonesia. It's a pastry filled with vegetables, typically eaten as a light breakfast. The word \"pastel\" originated from Portuguese. The dish itself was brought into the country during the occupation of Portuguese back in the 16th century."
+    
+    desc.lineBreakMode = NSLineBreakMode.byWordWrapping
+    desc.numberOfLines = 0
+    
+    catalogview.addSubview(title)
+    title.addSubview(desc)
+}
+
+func description5() {
+    let title = UILabel(frame: CGRect(x: 280, y: 620, width: 200, height: 100))
+    let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
+    
+    title.text = "Pukis Cake"
+    title.font = UIFont(name: "Avenir-Heavy", size: 20)
+    desc.font = UIFont(name: "Avenir", size: 12)
+    
+    desc.text = "Pukis cake is one of the most well-known street food/snack in Indonesia. It has a soft sponge-like texture, usually sprinkled with various toppings such as grated cheese, chocolate sprinkles or any type of jams. Since it's very popular, Pukis cake can be found pretty much anywhere in Indonesia."
+    
+    desc.lineBreakMode = NSLineBreakMode.byWordWrapping
+    desc.numberOfLines = 0
+    
+    catalogview.addSubview(title)
+    title.addSubview(desc)
+}
+
+//Environment descriptions
+description1()
+description2()
+description3()
+
+//Paddle descriptions
+description4()
+description5()
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -387,7 +435,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func glodokPressed(_ sender: UIButton!) {
         print("pressed Glodok")
-        borderBg.texture = SKTexture(imageNamed: "Glodok.jpg")
+        borderBg.texture = SKTexture(imageNamed: "glodok.jpg")
     }
     
     @objc func suryakencanaPressed(_ sender: UIButton!) {
@@ -401,7 +449,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func ondeOndePressed(_ sender: UIButton!) {
         print("change ball")
-        ballBg.texture = SKTexture(imageNamed: "paddle")
+        ballBg.texture = SKTexture(imageNamed: "ondeonde.png")
     }
     
     func goToCatalogButton(){
