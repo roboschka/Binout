@@ -56,11 +56,11 @@ paddleImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
 catalogview.addSubview(paddle1)
 paddle1.addSubview(paddleImage1)
 
-let block1 = UIButton(frame: CGRect(x: 60, y: 600, width: 200, height: 50))
-let blockImage1 = UIImageView(image: UIImage(named: "paddle"))
-blockImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
-catalogview.addSubview(block1)
-block1.addSubview(blockImage1)
+let ball1 = UIButton(frame: CGRect(x: 60, y: 600, width: 200, height: 50))
+let ballImage1 = UIImageView(image: UIImage(named: "paddle"))
+ballImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
+catalogview.addSubview(ball1)
+ball1.addSubview(ballImage1)
 
 description1()
 description2()
@@ -132,6 +132,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var borderBg: SKSpriteNode!
     var paddleBg: SKSpriteNode!
+    var ballBg: SKSpriteNode!
     
     lazy var gameState: GKStateMachine = GKStateMachine(states: [
     WaitingForTap(scene: self),
@@ -202,10 +203,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         catalogview.isHidden = true
         
         background1.addTarget(self, action: #selector(glodokPressed), for: .touchUpInside)
-        background2.addTarget(self, action: #selector(jakartaFair), for: .touchUpInside)
+        background2.addTarget(self, action: #selector(suryakencanaPressed), for: .touchUpInside)
         
         paddle1.addTarget(self, action: #selector(kueLapisPressed), for: .touchUpInside)
-        
+        ball1.addTarget(self, action: #selector(ondeOndePressed), for: .touchUpInside)
         
         backButton.setTitle("Back", for: .normal)
         backButton.backgroundColor = .black
@@ -236,6 +237,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         let ball = childNode(withName: "ball") as! SKSpriteNode
+        ballBg = ball
         
         let trailNode = SKNode()
         trailNode.zPosition = 1
@@ -382,13 +384,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         borderBg.texture = SKTexture(imageNamed: "Glodok.jpg")
     }
     
-    @objc func jakartaFair(_ sender: UIButton!) {
-        print("pressed Jakarta Fair")
+    @objc func suryakencanaPressed(_ sender: UIButton!) {
+        print("pressed suryakencana")
     }
     
     @objc func kueLapisPressed(_ sender: UIButton!) {
-        print("Kue lapis pressed")
+        print("Kue lapis paddle pressed")
         paddleBg.texture = SKTexture(imageNamed: "block")
+    }
+    
+    @objc func ondeOndePressed(_ sender: UIButton!) {
+        print("change ball")
+        ballBg.texture = SKTexture(imageNamed: "paddle")
     }
     
     func goToCatalogButton(){
