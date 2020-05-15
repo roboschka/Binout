@@ -24,49 +24,55 @@ catalogview.contentSize = CGSize(width: 768, height: 2000)
 let backButton = UIButton(frame: CGRect(x: 10, y: 10, width: 50, height: 20))
 
 
-let pickABackground = UILabel(frame: CGRect(x: sceneView.frame.width / 2 - 100, y: 25, width: 200, height: 20))
+let pickABackground = UILabel(frame: CGRect(x: 60, y: 50, width: 400, height: 40))
 pickABackground.tintColor = .black
 pickABackground.text = "Pick Your Environment"
-pickABackground.textAlignment = .center
+pickABackground.textAlignment = .left
+pickABackground.font = UIFont(name: "Avenir-Heavy", size: 32)
 catalogview.addSubview(pickABackground)
 
 
-let background1 = UIButton(frame: CGRect(x: 60, y: 60, width: 200, height: 250))
+let background1 = UIButton(frame: CGRect(x: 60, y: 80, width: 200, height: 250))
 let bgImage1 = UIImageView(image: UIImage(named: "glodok.jpg"))
 bgImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background1)
 background1.addSubview(bgImage1)
 
-let background2 = UIButton(frame: CGRect(x: 280, y: 60, width: 200, height: 250))
+let background2 = UIButton(frame: CGRect(x: 280, y: 80, width: 200, height: 250))
 let bgImage2 = UIImageView(image: UIImage(named: "paddle"))
 bgImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background2)
 background2.addSubview(bgImage2)
 
 
-let background3 = UIButton(frame: CGRect(x: 500, y: 60, width: 200, height: 250))
+let background3 = UIButton(frame: CGRect(x: 500, y: 80, width: 200, height: 250))
 let bgImage3 = UIImageView(image: UIImage(named: "paddle"))
 bgImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background3)
 background3.addSubview(bgImage3)
 
-let paddle1 = UIButton(frame: CGRect(x: 60, y: 500, width: 200, height: 100))
+
+
+
+let paddle1 = UIButton(frame: CGRect(x: 60, y: 530, width: 200, height: 100))
 let paddleImage1 = UIImageView(image: UIImage(named: "pastel"))
 paddleImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 100 )
 catalogview.addSubview(paddle1)
 paddle1.addSubview(paddleImage1)
 
-let paddle2 = UIButton(frame: CGRect(x: 280, y: 500, width: 200, height: 100))
+let paddle2 = UIButton(frame: CGRect(x: 280, y: 530, width: 200, height: 100))
 let paddleImage2 = UIImageView(image: UIImage(named: "pancong.png"))
 paddleImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
 catalogview.addSubview(paddle2)
 paddle2.addSubview(paddleImage2)
 
-let paddle3 = UIButton(frame: CGRect(x: 500, y: 500, width: 200, height: 100))
+let paddle3 = UIButton(frame: CGRect(x: 500, y: 530, width: 200, height: 100))
 let paddleImage3 = UIImageView(image: UIImage(named: "pisangijo"))
 paddleImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
 catalogview.addSubview(paddle3)
 paddle3.addSubview(paddleImage3)
+
+
 
 let ball1 = UIButton(frame: CGRect(x: 60, y: 1000, width: 200, height: 200))
 let ballImage1 = UIImageView(image: UIImage(named: "ondeonde.png"))
@@ -74,12 +80,23 @@ ballImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
 catalogview.addSubview(ball1)
 ball1.addSubview(ballImage1)
 
+let ball2 = UIButton(frame: CGRect(x: 280, y: 1000, width: 200, height: 200))
+let ballImage2 = UIImageView(image: UIImage(named: "cucur.png"))
+ballImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+catalogview.addSubview(ball2)
+ball2.addSubview(ballImage2)
+
+let ball3 = UIButton(frame: CGRect(x: 500, y: 1000, width: 200, height: 200))
+let ballImage3 = UIImageView(image: UIImage(named: "serabi.png"))
+ballImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+catalogview.addSubview(ball3)
+ball3.addSubview(ballImage3)
 
 
 func description1(){
     //Glodok
     let title = UILabel(frame: CGRect(x: 60, y: 280, width: 200, height: 100))
-    let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
+    let desc = UILabel(frame: CGRect(x: 0, y: 40, width: 200, height: 200))
     title.text = "Glodok Market"
     title.font = UIFont(name: "Avenir-Heavy", size: 20)
     desc.font = UIFont(name: "Avenir", size: 12)
@@ -138,7 +155,7 @@ func description4(){
     title.font = UIFont(name: "Avenir-Heavy", size: 20)
     desc.font = UIFont(name: "Avenir", size: 12)
     
-    desc.text = "Pastel is a very popular dish in Indonesia. It's a pastry filled with vegetables, typically eaten as a light breakfast. The word \"pastel\" originated from Portuguese. The dish itself was brought into the country during the occupation of Portuguese back in the 16th century."
+    desc.text = "Pastel is a very popular dish in Indonesia. It's a pastry filled with vegetables, typically eaten as a light breakfast. The word \"pastel\" originated from Portuguese meaning \"pastry\". The dish itself was brought into the country during the occupation of Portuguese back in the 16th century."
     
     desc.lineBreakMode = NSLineBreakMode.byWordWrapping
     desc.numberOfLines = 0
@@ -148,8 +165,9 @@ func description4(){
 }
 
 func description5() {
+    //Pukis
     let title = UILabel(frame: CGRect(x: 280, y: 620, width: 200, height: 100))
-    let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
+    let desc = UILabel(frame: CGRect(x: 0, y: 45, width: 200, height: 200))
     
     title.text = "Pukis Cake"
     title.font = UIFont(name: "Avenir-Heavy", size: 20)
@@ -164,6 +182,29 @@ func description5() {
     title.addSubview(desc)
 }
 
+func description6() {
+    //Pisang Ijo
+    let title = UILabel(frame: CGRect(x: 500, y: 620, width: 200, height: 100))
+    let desc = UILabel(frame: CGRect(x: 0, y: 55, width: 200, height: 200))
+    
+    title.text = "Cake Pisang Ijo"
+    title.font = UIFont(name: "Avenir-Heavy", size: 20)
+    desc.font = UIFont(name: "Avenir", size: 12)
+    
+    desc.text = "Cake Pisang Ijo is a type of chewy dish, usually eaten as a dessert alongside sweet marrow porridge with banana syrup. It's originated from South Sulawesi. For the Bugis people, the bright green color represents peace and elegance. This is a very popular dish for breaking the fast, especially during Ramadhan."
+    
+    desc.lineBreakMode = NSLineBreakMode.byWordWrapping
+    desc.numberOfLines = 0
+    
+    catalogview.addSubview(title)
+    title.addSubview(desc)
+}
+
+//Ball
+func description7() {
+    //Onde-Onde
+}
+
 //Environment descriptions
 description1()
 description2()
@@ -172,6 +213,9 @@ description3()
 //Paddle descriptions
 description4()
 description5()
+description6()
+
+//Ball descriptions
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -259,7 +303,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background1.addTarget(self, action: #selector(glodokPressed), for: .touchUpInside)
         background2.addTarget(self, action: #selector(suryakencanaPressed), for: .touchUpInside)
         
-        paddle1.addTarget(self, action: #selector(kueLapisPressed), for: .touchUpInside)
+        paddle1.addTarget(self, action: #selector(pastelPressed), for: .touchUpInside)
         ball1.addTarget(self, action: #selector(ondeOndePressed), for: .touchUpInside)
         
         backButton.setTitle("Back", for: .normal)
@@ -442,8 +486,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print("pressed suryakencana")
     }
     
-    @objc func kueLapisPressed(_ sender: UIButton!) {
-        print("Kue lapis paddle pressed")
+    @objc func pastelPressed(_ sender: UIButton!) {
         paddleBg.texture = SKTexture(imageNamed: "pastel")
     }
     
