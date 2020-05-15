@@ -33,7 +33,7 @@ catalogview.addSubview(pickABackground)
 
 
 let background1 = UIButton(frame: CGRect(x: 60, y: 100, width: 200, height: 250))
-let bgImage1 = UIImageView(image: UIImage(named: "glodok.jpg"))
+let bgImage1 = UIImageView(image: UIImage(named: "glodok"))
 bgImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background1)
 background1.addSubview(bgImage1)
@@ -365,7 +365,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background2.addTarget(self, action: #selector(suryakencanaPressed), for: .touchUpInside)
         
         paddle1.addTarget(self, action: #selector(pastelPressed), for: .touchUpInside)
+        paddle2.addTarget(self, action: #selector(pukisPressed), for: .touchUpInside)
+        paddle3.addTarget(self, action: #selector(pisangPressed), for: .touchUpInside)
+        
         ball1.addTarget(self, action: #selector(ondeOndePressed), for: .touchUpInside)
+        ball2.addTarget(self, action: #selector(cucurPressed), for: .touchUpInside)
+        ball3.addTarget(self, action: #selector(serabiPressed), for: .touchUpInside)
         
         backButton.setTitle("Back", for: .normal)
         backButton.backgroundColor = .black
@@ -540,20 +545,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     @objc func glodokPressed(_ sender: UIButton!) {
         print("pressed Glodok")
-        borderBg.texture = SKTexture(imageNamed: "glodok.jpg")
+        borderBg.texture = SKTexture(imageNamed: "glodok.png")
     }
     
     @objc func suryakencanaPressed(_ sender: UIButton!) {
         print("pressed suryakencana")
     }
     
+    
     @objc func pastelPressed(_ sender: UIButton!) {
         paddleBg.texture = SKTexture(imageNamed: "pastel")
     }
+    @objc func pukisPressed(_ sender: UIButton!) {
+        paddleBg.texture = SKTexture(imageNamed: "pancong.png")
+    }
+    @objc func pisangPressed(_ sender: UIButton!) {
+        paddleBg.texture = SKTexture(imageNamed: "pisangijo.png")
+    }
+    
+    
+    
     
     @objc func ondeOndePressed(_ sender: UIButton!) {
-        print("change ball")
         ballBg.texture = SKTexture(imageNamed: "ondeonde.png")
+    }
+    @objc func cucurPressed(_ sender: UIButton!) {
+        ballBg.texture = SKTexture(imageNamed: "cucur.png")
+    }
+    @objc func serabiPressed(_ sender: UIButton!) {
+        ballBg.texture = SKTexture(imageNamed: "serabi.png")
     }
     
     func goToCatalogButton(){
