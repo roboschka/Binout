@@ -279,12 +279,9 @@ description8()
 description9()
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
-    var coinPoints: Int = 0
     var catalogTouched: Bool = false
     
     var isFingerOnPaddle = false
-    var coins = SKLabelNode(fontNamed: "SF Pro Rounded")
     
     private var label : SKLabelNode!
     private var spinnyNode : SKShapeNode!
@@ -338,10 +335,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BlockCategory {
             run(bambooBreakSound)
             breakBlock(secondBody.node!)
-            coinPoints += Int.random(in: 3...5)
-            coins.text = String(coinPoints)
             
-            print(coinPoints)
             if isGameWon() {
               gameState.enter(GameOver.self)
               gameWon = true
@@ -379,13 +373,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         
-        coins.text = String(coinPoints)
-        coins.fontSize = 36
-        coins.fontColor = SKColor.white
-        coins.position = CGPoint(x: frame.width * 0.9, y: frame.height * 0.92)
-        coins.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
-
-        addChild(coins)
+        
         
         goToCatalogButton()
         
@@ -428,7 +416,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //Bamboo Blocks
-        let numberOfBlocks = 6
+        let numberOfBlocks = 8
         let blockWidth = SKSpriteNode(imageNamed: "block.png").size.width
         let totalBlocksWidth = blockWidth * CGFloat(numberOfBlocks)
         // 2.
@@ -436,8 +424,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // 3.
         for i in 0..<numberOfBlocks {
           let block = SKSpriteNode(imageNamed: "block.png")
-          block.position = CGPoint(x: xOffset + CGFloat(CGFloat(i) + 0.5) * blockWidth,
-                                   y: frame.height * 0.7)
+            block.position = CGPoint(x: xOffset + CGFloat(CGFloat(i) + 0.5) * blockWidth, y: frame.height * 0.7)
           
           block.physicsBody = SKPhysicsBody(rectangleOf: block.frame.size)
           block.physicsBody!.allowsRotation = false
@@ -450,13 +437,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           addChild(block)
         }
         
-        let overlayTitle = SKSpriteNode(color: UIColor(red: 1, green: 0, blue: 0, alpha: 0.5), size: CGSize(width: frame.width * 2, height: frame.height * 2))
+        for i in 0..<numberOfBlocks {
+          let block = SKSpriteNode(imageNamed: "block.png")
+            block.position = CGPoint(x: xOffset + CGFloat(CGFloat(i) + 0.5) * blockWidth, y: frame.height * 0.7 - block.frame.height * 0.4)
+          
+          block.physicsBody = SKPhysicsBody(rectangleOf: block.frame.size)
+          block.physicsBody!.allowsRotation = false
+          block.physicsBody!.friction = 0.0
+          block.physicsBody!.affectedByGravity = false
+          block.physicsBody!.isDynamic = false
+          block.name = BlockCategoryName
+          block.physicsBody!.categoryBitMask = BlockCategory
+          block.zPosition = 2
+          addChild(block)
+        }
+        
+        for i in 0..<numberOfBlocks {
+          let block = SKSpriteNode(imageNamed: "block.png")
+            block.position = CGPoint(x: xOffset + CGFloat(CGFloat(i) + 0.5) * blockWidth, y: frame.height * 0.7 - block.frame.height * 0.8)
+          
+          block.physicsBody = SKPhysicsBody(rectangleOf: block.frame.size)
+          block.physicsBody!.allowsRotation = false
+          block.physicsBody!.friction = 0.0
+          block.physicsBody!.affectedByGravity = false
+          block.physicsBody!.isDynamic = false
+          block.name = BlockCategoryName
+          block.physicsBody!.categoryBitMask = BlockCategory
+          block.zPosition = 2
+          addChild(block)
+        }
+        
+        let overlayTitle = SKSpriteNode(color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.85), size: CGSize(width: frame.width * 2, height: frame.height * 2))
         overlayTitle.zPosition = 4
+        overlayTitle.name = "Overlay"
         addChild(overlayTitle)
         
         let gameTitle = SKSpriteNode(imageNamed: "gameLogo")
         gameTitle.name = "GameLogo"
-        gameTitle.position = CGPoint(x: frame.midX, y: frame.midY * 1.5)
+        gameTitle.position = CGPoint(x: frame.midX, y: frame.midY * 1.45)
         gameTitle.zPosition = 5
         gameTitle.setScale(1.0)
         addChild(gameTitle)
@@ -500,6 +518,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             
         case is Playing:
+            
           let touch = touches.first
           let touchLocation = touch!.location(in: self)
           if let body = physicsWorld.body(at: touchLocation) {
@@ -588,10 +607,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func goToCatalogButton(){
-        let catalogButton = SKSpriteNode(imageNamed: "catalogButton")
+        let catalogButton = SKSpriteNode(imageNamed: "catalogButton.png")
         catalogButton.name = "catalogButton"
-        catalogButton.size = CGSize(width: 75, height: 75)
-        catalogButton.position = CGPoint(x: frame.width * 0.1, y: frame.height * 0.94)
+        catalogButton.size = CGSize(width: 120, height: 120)
+        catalogButton.position = CGPoint(x: frame.width * 0.11, y: frame.height * 0.92)
         addChild(catalogButton)
     }
     
@@ -633,6 +652,8 @@ class WaitingForTap: GKState {
   override func didEnter(from previousState: GKState?) {
     let scale = SKAction.scale(to: 1.0, duration: 0.25)
     scene.childNode(withName: GameMessageName)!.run(scale)
+    scene.childNode(withName: "Overlay")!.run(scale)
+    scene.childNode(withName: "GameLogo")!.run(scale)
     
   }
   
@@ -640,6 +661,8 @@ class WaitingForTap: GKState {
     if nextState is Playing {
       let scale = SKAction.scale(to: 0, duration: 0.4)
       scene.childNode(withName: GameMessageName)!.run(scale)
+        scene.childNode(withName: "Overlay")!.run(scale)
+        scene.childNode(withName: "GameLogo")!.run(scale)
     }
   }
   
