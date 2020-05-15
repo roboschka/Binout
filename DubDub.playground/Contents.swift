@@ -39,7 +39,7 @@ catalogview.addSubview(background1)
 background1.addSubview(bgImage1)
 
 let background2 = UIButton(frame: CGRect(x: 280, y: 100, width: 200, height: 250))
-let bgImage2 = UIImageView(image: UIImage(named: "paddle"))
+let bgImage2 = UIImageView(image: UIImage(named: "suryakencana"))
 bgImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background2)
 background2.addSubview(bgImage2)
@@ -549,7 +549,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func suryakencanaPressed(_ sender: UIButton!) {
-        print("pressed suryakencana")
+        borderBg.texture = SKTexture(imageNamed: "suryakencana.png")
     }
     
     
