@@ -213,14 +213,54 @@ func description6() {
 //Ball
 func description7() {
     //Onde-Onde
-    let title = UILabel(frame: CGRect(x: 60, y: 1400, width: 200, height: 100))
+    let title = UILabel(frame: CGRect(x: 60, y: 1230, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 55, width: 200, height: 200))
     
     title.text = "Onde-Onde"
     title.font = UIFont(name: "Avenir-Heavy", size: 20)
     desc.font = UIFont(name: "Avenir", size: 12)
     
-    desc.text = "Onde-onde is another popular indo-chinese snack. It's a fried pastry coated with sesame seeds and usually has mung bean paste as the filling. The Indonesian version of Onde-Onde originates from Mojokerto, it is thought to have come from a city called \"Onde-Onde\" ever since the Majapahit Empire era."
+    desc.text = "Onde-onde is another popular indo-chinese snack. It's a fried pastry coated with sesame seeds and usually has mung bean paste as the filling. The Indonesian version of Onde-Onde originates from Mojokerto, it is thought to have come from a city called \"Onde-Onde\" during the Majapahit Empire era."
+    
+    desc.lineBreakMode = NSLineBreakMode.byWordWrapping
+    desc.numberOfLines = 0
+    
+    catalogview.addSubview(title)
+    title.addSubview(desc)
+}
+
+func description8(){
+    let title = UILabel(frame: CGRect(x: 280, y: 1230, width: 200, height: 100))
+    let desc = UILabel(frame: CGRect(x: 0, y: 55, width: 200, height: 200))
+    
+    title.text = "Cucur"
+    title.font = UIFont(name: "Avenir-Heavy", size: 20)
+    desc.font = UIFont(name: "Avenir", size: 12)
+    
+    desc.text = "Cucur is a traditional Indonesian snack, though it's also very popular in parts of Southeast Asia such as Malaysia and Vietnam. Cucur has a unique sweet taste. It's made with brown palm sugar, which gives Cucur their brown color. Cucur is typically eaten for dessert."
+    
+    desc.lineBreakMode = NSLineBreakMode.byWordWrapping
+    desc.numberOfLines = 0
+    
+    catalogview.addSubview(title)
+    title.addSubview(desc)
+}
+
+func description9() {
+    let title = UILabel(frame: CGRect(x: 500, y: 1230, width: 200, height: 100))
+    let desc = UILabel(frame: CGRect(x: 0, y: 55, width: 200, height: 200))
+    
+    title.text = "Serabi"
+    title.font = UIFont(name: "Avenir-Heavy", size: 20)
+    desc.font = UIFont(name: "Avenir", size: 12)
+    
+    desc.text = "Serabi is a pancake originated from Java, Indonesia. It's made from rice flour with coconut milk or shredded coconut. It tastes really sweet and is usually eaten with coconut sugar syrup, though there are many variants of toppings nowadays such as saussages and cheese."
+    
+    desc.lineBreakMode = NSLineBreakMode.byWordWrapping
+    desc.numberOfLines = 0
+    
+    catalogview.addSubview(title)
+    title.addSubview(desc)
 }
 
 //Environment descriptions
@@ -234,6 +274,9 @@ description5()
 description6()
 
 //Ball descriptions
+description7()
+description8()
+description9()
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
