@@ -32,20 +32,20 @@ pickABackground.font = UIFont(name: "Avenir-Heavy", size: 32)
 catalogview.addSubview(pickABackground)
 
 
-let background1 = UIButton(frame: CGRect(x: 60, y: 80, width: 200, height: 250))
+let background1 = UIButton(frame: CGRect(x: 60, y: 100, width: 200, height: 250))
 let bgImage1 = UIImageView(image: UIImage(named: "glodok.jpg"))
 bgImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background1)
 background1.addSubview(bgImage1)
 
-let background2 = UIButton(frame: CGRect(x: 280, y: 80, width: 200, height: 250))
+let background2 = UIButton(frame: CGRect(x: 280, y: 100, width: 200, height: 250))
 let bgImage2 = UIImageView(image: UIImage(named: "paddle"))
 bgImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background2)
 background2.addSubview(bgImage2)
 
 
-let background3 = UIButton(frame: CGRect(x: 500, y: 80, width: 200, height: 250))
+let background3 = UIButton(frame: CGRect(x: 500, y: 100, width: 200, height: 250))
 let bgImage3 = UIImageView(image: UIImage(named: "paddle"))
 bgImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background3)
@@ -53,40 +53,50 @@ background3.addSubview(bgImage3)
 
 
 
+let choosePaddle = UILabel(frame: CGRect(x: 60, y: 580, width: 400, height: 40))
+choosePaddle.tintColor = .black
+choosePaddle.text = "Choose A Paddle"
+choosePaddle.font = UIFont(name: "Avenir-Heavy", size: 32)
+catalogview.addSubview(choosePaddle)
 
-let paddle1 = UIButton(frame: CGRect(x: 60, y: 530, width: 200, height: 100))
+let paddle1 = UIButton(frame: CGRect(x: 60, y: 630, width: 200, height: 100))
 let paddleImage1 = UIImageView(image: UIImage(named: "pastel"))
 paddleImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 100 )
 catalogview.addSubview(paddle1)
 paddle1.addSubview(paddleImage1)
 
-let paddle2 = UIButton(frame: CGRect(x: 280, y: 530, width: 200, height: 100))
+let paddle2 = UIButton(frame: CGRect(x: 280, y: 630, width: 200, height: 100))
 let paddleImage2 = UIImageView(image: UIImage(named: "pancong.png"))
 paddleImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
 catalogview.addSubview(paddle2)
 paddle2.addSubview(paddleImage2)
 
-let paddle3 = UIButton(frame: CGRect(x: 500, y: 530, width: 200, height: 100))
+let paddle3 = UIButton(frame: CGRect(x: 500, y: 630, width: 200, height: 100))
 let paddleImage3 = UIImageView(image: UIImage(named: "pisangijo"))
 paddleImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 100)
 catalogview.addSubview(paddle3)
 paddle3.addSubview(paddleImage3)
 
 
+let chooseBall = UILabel(frame: CGRect(x: 60, y: 1000, width: 400, height: 40))
+chooseBall.tintColor = .black
+chooseBall.text = "Choose Your Ball"
+chooseBall.font = UIFont(name: "Avenir-Heavy", size: 32)
+catalogview.addSubview(chooseBall)
 
-let ball1 = UIButton(frame: CGRect(x: 60, y: 1000, width: 200, height: 200))
+let ball1 = UIButton(frame: CGRect(x: 60, y: 1050, width: 200, height: 200))
 let ballImage1 = UIImageView(image: UIImage(named: "ondeonde.png"))
 ballImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
 catalogview.addSubview(ball1)
 ball1.addSubview(ballImage1)
 
-let ball2 = UIButton(frame: CGRect(x: 280, y: 1000, width: 200, height: 200))
+let ball2 = UIButton(frame: CGRect(x: 280, y: 1050, width: 200, height: 200))
 let ballImage2 = UIImageView(image: UIImage(named: "cucur.png"))
 ballImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
 catalogview.addSubview(ball2)
 ball2.addSubview(ballImage2)
 
-let ball3 = UIButton(frame: CGRect(x: 500, y: 1000, width: 200, height: 200))
+let ball3 = UIButton(frame: CGRect(x: 500, y: 1050, width: 200, height: 200))
 let ballImage3 = UIImageView(image: UIImage(named: "serabi.png"))
 ballImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
 catalogview.addSubview(ball3)
@@ -95,7 +105,7 @@ ball3.addSubview(ballImage3)
 
 func description1(){
     //Glodok
-    let title = UILabel(frame: CGRect(x: 60, y: 280, width: 200, height: 100))
+    let title = UILabel(frame: CGRect(x: 60, y: 320, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 40, width: 200, height: 200))
     title.text = "Glodok Market"
     title.font = UIFont(name: "Avenir-Heavy", size: 20)
@@ -111,7 +121,7 @@ func description1(){
 
 func description2(){
     //Floating Market
-    let title = UILabel(frame: CGRect(x: 280, y: 280, width: 200, height: 100))
+    let title = UILabel(frame: CGRect(x: 280, y: 320, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
     
     title.text = "Suryakencana Street"
@@ -129,7 +139,7 @@ func description2(){
 
 func description3(){
     //Floating Market
-    let title = UILabel(frame: CGRect(x: 500, y: 280, width: 200, height: 100))
+    let title = UILabel(frame: CGRect(x: 500, y: 320, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
     
     title.text = "Floating Market"
@@ -148,7 +158,7 @@ func description3(){
 //MARK: Paddles area
 func description4(){
     //Pastel
-    let title = UILabel(frame: CGRect(x: 60, y: 620, width: 200, height: 100))
+    let title = UILabel(frame: CGRect(x: 60, y: 720, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
     
     title.text = "Pastel"
@@ -166,7 +176,7 @@ func description4(){
 
 func description5() {
     //Pukis
-    let title = UILabel(frame: CGRect(x: 280, y: 620, width: 200, height: 100))
+    let title = UILabel(frame: CGRect(x: 280, y: 720, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 45, width: 200, height: 200))
     
     title.text = "Pukis Cake"
@@ -184,7 +194,7 @@ func description5() {
 
 func description6() {
     //Pisang Ijo
-    let title = UILabel(frame: CGRect(x: 500, y: 620, width: 200, height: 100))
+    let title = UILabel(frame: CGRect(x: 500, y: 720, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 55, width: 200, height: 200))
     
     title.text = "Cake Pisang Ijo"
@@ -203,6 +213,14 @@ func description6() {
 //Ball
 func description7() {
     //Onde-Onde
+    let title = UILabel(frame: CGRect(x: 60, y: 1400, width: 200, height: 100))
+    let desc = UILabel(frame: CGRect(x: 0, y: 55, width: 200, height: 200))
+    
+    title.text = "Onde-Onde"
+    title.font = UIFont(name: "Avenir-Heavy", size: 20)
+    desc.font = UIFont(name: "Avenir", size: 12)
+    
+    desc.text = "Onde-onde is another popular indo-chinese snack. It's a fried pastry coated with sesame seeds and usually has mung bean paste as the filling. The Indonesian version of Onde-Onde originates from Mojokerto, it is thought to have come from a city called \"Onde-Onde\" ever since the Majapahit Empire era."
 }
 
 //Environment descriptions
