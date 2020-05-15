@@ -450,10 +450,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           addChild(block)
         }
         
+        let overlayTitle = SKSpriteNode(color: UIColor(red: 1, green: 0, blue: 0, alpha: 0.5), size: CGSize(width: frame.width * 2, height: frame.height * 2))
+        overlayTitle.zPosition = 4
+        addChild(overlayTitle)
+        
+        let gameTitle = SKSpriteNode(imageNamed: "gameLogo")
+        gameTitle.name = "GameLogo"
+        gameTitle.position = CGPoint(x: frame.midX, y: frame.midY * 1.5)
+        gameTitle.zPosition = 5
+        gameTitle.setScale(1.0)
+        addChild(gameTitle)
+        
         let gameMessage = SKSpriteNode(imageNamed: "TapToPlay")
         gameMessage.name = GameMessageName
         gameMessage.position = CGPoint(x: frame.midX, y: frame.midY)
-        gameMessage.zPosition = 4
+        gameMessage.zPosition = 5
         gameMessage.setScale(1.0)
         addChild(gameMessage)
 
@@ -577,9 +588,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func goToCatalogButton(){
-        let catalogButton = SKSpriteNode(imageNamed: "ball")
+        let catalogButton = SKSpriteNode(imageNamed: "catalogButton")
         catalogButton.name = "catalogButton"
-        catalogButton.size = CGSize(width: 50, height: 50)
+        catalogButton.size = CGSize(width: 75, height: 75)
         catalogButton.position = CGPoint(x: frame.width * 0.1, y: frame.height * 0.94)
         addChild(catalogButton)
     }
