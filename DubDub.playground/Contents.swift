@@ -310,8 +310,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     //MARK: Music
-    let blipSound = SKAction.playSoundFileNamed("pongblip", waitForCompletion: false)
-    let blipPaddleSound = SKAction.playSoundFileNamed("paddleBlip", waitForCompletion: false)
+    let blipSound = SKAction.playSoundFileNamed("ballbounce", waitForCompletion: false)
+    let blipPaddleSound = SKAction.playSoundFileNamed("paddleBounce", waitForCompletion: false)
     let bambooBreakSound = SKAction.playSoundFileNamed("BambooBreak", waitForCompletion: false)
     let gameWonSound = SKAction.playSoundFileNamed("game-won", waitForCompletion: false)
     let gameOverSound = SKAction.playSoundFileNamed("game-over", waitForCompletion: false)
