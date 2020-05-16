@@ -314,7 +314,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let blipPaddleSound = SKAction.playSoundFileNamed("paddleBounce", waitForCompletion: false)
     let bambooBreakSound = SKAction.playSoundFileNamed("BambooBreak", waitForCompletion: false)
     let gameWonSound = SKAction.playSoundFileNamed("winning", waitForCompletion: false)
-    let gameOverSound = SKAction.playSoundFileNamed("game-over", waitForCompletion: false)
+    let gameOverSound = SKAction.playSoundFileNamed("gameover", waitForCompletion: false)
     
     func didBegin(_ contact: SKPhysicsContact) {
         var firstBody: SKPhysicsBody
