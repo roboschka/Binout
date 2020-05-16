@@ -299,7 +299,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var gameWon : Bool = false {
       didSet {
         let gameOver = childNode(withName: GameMessageName) as! SKSpriteNode
-        let textureName = gameWon ? "YouWon" : "GameOver"
+        let textureName = gameWon ? "youwon" : "gameOver"
         let texture = SKTexture(imageNamed: textureName)
         let actionSequence = SKAction.sequence([SKAction.setTexture(texture),
           SKAction.scale(to: 1.0, duration: 0.25)])
@@ -479,7 +479,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameTitle.setScale(1.0)
         addChild(gameTitle)
         
-        let gameMessage = SKSpriteNode(imageNamed: "TapToPlay")
+        let gameMessage = SKSpriteNode(imageNamed: "taptoplay")
         gameMessage.name = GameMessageName
         gameMessage.position = CGPoint(x: frame.midX, y: frame.midY)
         gameMessage.zPosition = 5
