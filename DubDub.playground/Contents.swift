@@ -46,7 +46,7 @@ background2.addSubview(bgImage2)
 
 
 let background3 = UIButton(frame: CGRect(x: 500, y: 100, width: 200, height: 250))
-let bgImage3 = UIImageView(image: UIImage(named: "paddle"))
+let bgImage3 = UIImageView(image: UIImage(named: "malioboro"))
 bgImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background3)
 background3.addSubview(bgImage3)
@@ -142,11 +142,11 @@ func description3(){
     let title = UILabel(frame: CGRect(x: 500, y: 320, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
     
-    title.text = "Floating Market"
+    title.text = "Malioboro Street"
     title.font = UIFont(name: "Avenir-Heavy", size: 20)
     desc.font = UIFont(name: "Avenir", size: 12)
     
-    desc.text = "A local traditional market located in Indonesia's biggest chinatown: Glodok, Jakarta. Glodok Market sells a bunch of things ranging from fashionable clothes to traditional medicine. But they're most known for their huge variety of chinese cuisine."
+    desc.text = "Located in Yogyakarta, West Java. It's a major shopping street. The street's sidewalks are crowded with lots of motels/hotels, shops, restaurants even small stalls selling various goods. There are also street musicians, dancers and other artists exhibiting their creations on this road."
     
     desc.lineBreakMode = NSLineBreakMode.byWordWrapping
     desc.numberOfLines = 0
@@ -357,6 +357,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         background1.addTarget(self, action: #selector(glodokPressed), for: .touchUpInside)
         background2.addTarget(self, action: #selector(suryakencanaPressed), for: .touchUpInside)
+        background3.addTarget(self, action: #selector(malioboroPressed), for: .touchUpInside)
         
         paddle1.addTarget(self, action: #selector(pastelPressed), for: .touchUpInside)
         paddle2.addTarget(self, action: #selector(pukisPressed), for: .touchUpInside)
@@ -581,6 +582,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     @objc func suryakencanaPressed(_ sender: UIButton!) {
         borderBg.texture = SKTexture(imageNamed: "suryakencana.png")
     }
+    @objc func malioboroPressed(_ sender: UIButton!) {
+        borderBg.texture = SKTexture(imageNamed: "malioboro.png")
+    }
     
     
     @objc func pastelPressed(_ sender: UIButton!) {
@@ -592,7 +596,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     @objc func pisangPressed(_ sender: UIButton!) {
         paddleBg.texture = SKTexture(imageNamed: "pisangijo.png")
     }
-    
     
     
     
