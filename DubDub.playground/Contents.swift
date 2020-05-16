@@ -1,29 +1,45 @@
-//: A SpriteKit based Playground
-
+/*: ##  Welcome to Binout !
+ ### Introduction
+Binout is an inspired Breakout game with Indonesian cuisines theme. The idea behind this is to encourage people to get to know more regarding Indonesian cuisines through a familiar context for everyone, the classic breakout game.
+ 
+ Binout does this by giving the players the ability to customize some game elements. Such as the background, the ball and the paddle. So instead of the plain backgrounds we're used to see in a breakout game, players can pick an Indonesian cuisine as the ball or they can choose the background to be a popular place to eat around Indonesia while also learned a bit about their backgrounds.
+ 
+ Not only that, Binout sneaks in other form of Indonesian traditional art through the SFX. The SFX for Binout is actually the sound of Gamelan, a traditional musical instrument from Indonesia. The "Win" and "Game Over" song is a snippet of a popular Indonesian folk song called "Gundul - Gundul Pacul"
+ 
+ ### How to Play
+ * When tapping/clicking the initial screen, players can play a normal breakout game. The rules are the same: touch the bottom of the screen and you'll loose. Break all of the blocks, and you'll win.
+ * Players can choose their customization in the catalog button on the left top corner of the screen just by clicking on the image of the cuisine/place they want.
+ * Have fun !
+*/
 import PlaygroundSupport
 import UIKit
 import SpriteKit
 import GameplayKit
-import SceneKit
 
+//Items categories
 let BallCategoryName = "ball"
 let PaddleCategoryName = "paddle"
 let BlockCategoryName = "block"
 let GameMessageName = "gameMessage"
 
+//Bitmask categories
 let BallCategory   : UInt32 = 0x1 << 1
 let BottomCategory : UInt32 = 0x1 << 2
 let BlockCategory  : UInt32 = 0x1 << 3
 let PaddleCategory : UInt32 = 0x1 << 4
 let BorderCategory : UInt32 = 0x1 << 5
 
+//Main view
 let sceneView = SKView(frame: CGRect(x:0 , y: 0, width: 768, height: 1024))
+
+//Catalog view
 let catalogview = UIScrollView(frame: CGRect(x: 0, y: 0, width: 768, height: 1024))
 catalogview.contentSize = CGSize(width: 768, height: 2000)
 
+//Back to main view button
 let backButton = UIButton(frame: CGRect(x: 10, y: 10, width: 50, height: 20))
 
-
+//Pick background title
 let pickABackground = UILabel(frame: CGRect(x: 60, y: 50, width: 400, height: 40))
 pickABackground.tintColor = .black
 pickABackground.text = "Pick Your Environment"
@@ -31,7 +47,7 @@ pickABackground.textAlignment = .left
 pickABackground.font = UIFont(name: "Avenir-Heavy", size: 32)
 catalogview.addSubview(pickABackground)
 
-
+//Backgrounds
 let background1 = UIButton(frame: CGRect(x: 60, y: 100, width: 200, height: 250))
 let bgImage1 = UIImageView(image: UIImage(named: "glodok"))
 bgImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
@@ -44,7 +60,6 @@ bgImage2.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
 catalogview.addSubview(background2)
 background2.addSubview(bgImage2)
 
-
 let background3 = UIButton(frame: CGRect(x: 500, y: 100, width: 200, height: 250))
 let bgImage3 = UIImageView(image: UIImage(named: "malioboro"))
 bgImage3.frame = CGRect(x: 0, y: 0, width: 200, height: 250)
@@ -52,13 +67,14 @@ catalogview.addSubview(background3)
 background3.addSubview(bgImage3)
 
 
-
+//Pick paddle title
 let choosePaddle = UILabel(frame: CGRect(x: 60, y: 580, width: 400, height: 40))
 choosePaddle.tintColor = .black
 choosePaddle.text = "Choose A Paddle"
 choosePaddle.font = UIFont(name: "Avenir-Heavy", size: 32)
 catalogview.addSubview(choosePaddle)
 
+//Paddles
 let paddle1 = UIButton(frame: CGRect(x: 60, y: 630, width: 200, height: 100))
 let paddleImage1 = UIImageView(image: UIImage(named: "pastel"))
 paddleImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 100 )
@@ -78,12 +94,14 @@ catalogview.addSubview(paddle3)
 paddle3.addSubview(paddleImage3)
 
 
+//Pick ball title
 let chooseBall = UILabel(frame: CGRect(x: 60, y: 1000, width: 400, height: 40))
 chooseBall.tintColor = .black
 chooseBall.text = "Choose Your Ball"
 chooseBall.font = UIFont(name: "Avenir-Heavy", size: 32)
 catalogview.addSubview(chooseBall)
 
+//Balls
 let ball1 = UIButton(frame: CGRect(x: 60, y: 1050, width: 200, height: 200))
 let ballImage1 = UIImageView(image: UIImage(named: "ondeonde.png"))
 ballImage1.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
@@ -103,8 +121,8 @@ catalogview.addSubview(ball3)
 ball3.addSubview(ballImage3)
 
 
+//Background descriptions
 func description1(){
-    //Glodok
     let title = UILabel(frame: CGRect(x: 60, y: 320, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 40, width: 200, height: 200))
     title.text = "Glodok Market"
@@ -120,7 +138,6 @@ func description1(){
 }
 
 func description2(){
-    //Floating Market
     let title = UILabel(frame: CGRect(x: 280, y: 320, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
     
@@ -138,7 +155,6 @@ func description2(){
 }
 
 func description3(){
-    //Floating Market
     let title = UILabel(frame: CGRect(x: 500, y: 320, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
     
@@ -155,9 +171,9 @@ func description3(){
     title.addSubview(desc)
 }
 
-//MARK: Paddles area
+
+//Paddles description
 func description4(){
-    //Pastel
     let title = UILabel(frame: CGRect(x: 60, y: 720, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 35, width: 200, height: 200))
     
@@ -175,7 +191,6 @@ func description4(){
 }
 
 func description5() {
-    //Pukis
     let title = UILabel(frame: CGRect(x: 280, y: 720, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 45, width: 200, height: 200))
     
@@ -193,7 +208,6 @@ func description5() {
 }
 
 func description6() {
-    //Pisang Ijo
     let title = UILabel(frame: CGRect(x: 500, y: 720, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 55, width: 200, height: 200))
     
@@ -210,9 +224,8 @@ func description6() {
     title.addSubview(desc)
 }
 
-//Ball
+//Ball descriptions
 func description7() {
-    //Onde-Onde
     let title = UILabel(frame: CGRect(x: 60, y: 1230, width: 200, height: 100))
     let desc = UILabel(frame: CGRect(x: 0, y: 55, width: 200, height: 200))
     
@@ -263,6 +276,7 @@ func description9() {
     title.addSubview(desc)
 }
 
+
 //Environment descriptions
 description1()
 description2()
@@ -278,9 +292,10 @@ description7()
 description8()
 description9()
 
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    var catalogTouched: Bool = false
     
+    var catalogTouched: Bool = false
     var isFingerOnPaddle = false
     
     private var label : SKLabelNode!
@@ -290,6 +305,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var paddleBg: SKSpriteNode!
     var ballBg: SKSpriteNode!
     
+    //Game States
     lazy var gameState: GKStateMachine = GKStateMachine(states: [
     WaitingForTap(scene: self),
     Playing(scene: self),
@@ -309,7 +325,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       }
     }
     
-    //MARK: Music
+    //MARK: Music/SFX
     let blipSound = SKAction.playSoundFileNamed("ballbounce", waitForCompletion: false)
     let blipPaddleSound = SKAction.playSoundFileNamed("paddleBounce", waitForCompletion: false)
     let bambooBreakSound = SKAction.playSoundFileNamed("BambooBreak", waitForCompletion: false)
@@ -320,6 +336,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var firstBody: SKPhysicsBody
         var secondBody: SKPhysicsBody
         
+        //Checking collision for each bitmask category
         if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
           firstBody = contact.bodyA
           secondBody = contact.bodyB
@@ -328,24 +345,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           secondBody = contact.bodyA
         }
         
+        //Collision with bottom of the screen
         if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BottomCategory {
             gameState.enter(GameOver.self)
             gameWon = false
         }
+        //Collision with bamboo
         if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BlockCategory {
             run(bambooBreakSound)
             breakBlock(secondBody.node!)
             
+            //Winning the game
             if isGameWon() {
               gameState.enter(GameOver.self)
               gameWon = true
             }
         }
         
+        //Ball contacts with border
         if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == BorderCategory {
           run(blipSound)
         }
-              
+        //Ball contacts with paddle
         if firstBody.categoryBitMask == BallCategory && secondBody.categoryBitMask == PaddleCategory {
           run(blipPaddleSound)
         }
@@ -355,43 +376,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove(to view: SKView) {
         catalogview.isHidden = true
         
+        //Choosing backgrounds
         background1.addTarget(self, action: #selector(glodokPressed), for: .touchUpInside)
         background2.addTarget(self, action: #selector(suryakencanaPressed), for: .touchUpInside)
         background3.addTarget(self, action: #selector(malioboroPressed), for: .touchUpInside)
         
+        //Choosing paddles
         paddle1.addTarget(self, action: #selector(pastelPressed), for: .touchUpInside)
         paddle2.addTarget(self, action: #selector(pukisPressed), for: .touchUpInside)
         paddle3.addTarget(self, action: #selector(pisangPressed), for: .touchUpInside)
         
+        //Choosing balls
         ball1.addTarget(self, action: #selector(ondeOndePressed), for: .touchUpInside)
         ball2.addTarget(self, action: #selector(cucurPressed), for: .touchUpInside)
         ball3.addTarget(self, action: #selector(serabiPressed), for: .touchUpInside)
         
+        //Back to main view button styling
         backButton.setTitle("Back", for: .normal)
         backButton.backgroundColor = .black
         backButton.tintColor = .white
+        backButton.layer.cornerRadius = 20
         backButton.addTarget(self, action: #selector(backButtonPressed(_:)), for: .touchUpInside)
-        
-        
-        
-        
-        
+                
         goToCatalogButton()
         
-        
+        //Border settings
         let border = childNode(withName: "collision_test") as! SKSpriteNode
         let borderBody = SKPhysicsBody(edgeLoopFrom: border.frame)
         borderBody.friction = 0
         self.physicsBody = borderBody
         borderBg = border
         
+        //World is not affected by gravity
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
         
-        
+        //Ball settings
         let ball = childNode(withName: "ball") as! SKSpriteNode
         ballBg = ball
         
+        //Setting up trails/particles
         let trailNode = SKNode()
         trailNode.zPosition = 1
         addChild(trailNode)
@@ -399,30 +423,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         trail.targetNode = trailNode
         ball.addChild(trail)
         
+        //Bottom rectangle
         let bottomRect = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 1)
         let bottom = SKNode()
         bottom.physicsBody = SKPhysicsBody(edgeLoopFrom: bottomRect)
         addChild(bottom)
         
-        
+        //Paddle settings
         let paddle = childNode(withName: PaddleCategoryName) as! SKSpriteNode
         paddleBg = paddle
         
+        //Assigning bitmask categories
         bottom.physicsBody!.categoryBitMask = BottomCategory
         ball.physicsBody!.categoryBitMask = BallCategory
         paddle.physicsBody!.categoryBitMask = PaddleCategory
         borderBody.categoryBitMask = BorderCategory
         
+        //Setting up which categories the ball can has contact with
         ball.physicsBody!.contactTestBitMask = BottomCategory | BlockCategory | BorderCategory | PaddleCategory
         
         
-        //Bamboo Blocks
+        //Blocks settings
         let numberOfBlocks = 8
         let blockWidth = SKSpriteNode(imageNamed: "block.png").size.width
         let totalBlocksWidth = blockWidth * CGFloat(numberOfBlocks)
-        // 2.
         let xOffset = (frame.width - totalBlocksWidth) / 2
-        // 3.
+        
+        //Spawning blocks
         for i in 0..<numberOfBlocks {
           let block = SKSpriteNode(imageNamed: "block.png")
             block.position = CGPoint(x: xOffset + CGFloat(CGFloat(i) + 0.5) * blockWidth, y: frame.height * 0.7)
@@ -468,11 +495,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           addChild(block)
         }
         
+        //Setting Tap to Play overlay
         let overlayTitle = SKSpriteNode(color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.85), size: CGSize(width: frame.width * 2, height: frame.height * 2))
         overlayTitle.zPosition = 4
         overlayTitle.name = "Overlay"
         addChild(overlayTitle)
         
+        //Game title settings
         let gameTitle = SKSpriteNode(imageNamed: "gameLogo")
         gameTitle.name = "GameLogo"
         gameTitle.position = CGPoint(x: frame.midX, y: frame.midY * 1.45)
@@ -480,23 +509,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameTitle.setScale(1.0)
         addChild(gameTitle)
         
+        //Game messages settings
         let gameMessage = SKSpriteNode(imageNamed: "taptoplay")
         gameMessage.name = GameMessageName
         gameMessage.position = CGPoint(x: frame.midX, y: frame.midY)
         gameMessage.zPosition = 5
         gameMessage.setScale(1.0)
         addChild(gameMessage)
-
+        
+        //Enter first state of the game
         gameState.enter(WaitingForTap.self)
-        
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
         for touch in touches {
             if touch == touches.first {
                 enumerateChildNodes(withName: "//*", using: {(node, stop) in
+                    //Press the catalog button
                     if node.name == "catalogButton" {
                         if node.contains(touch.location(in: self)) {
                             self.gameState.enter(WaitingForTap.self)
@@ -508,18 +537,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        //Game state settings
         switch gameState.currentState {
         case is WaitingForTap:
-            if catalogTouched {
-                print("catalogue is active")
-            }
-            else {
+            //Continue playing if not on catalogue
+            if !catalogTouched {
               gameState.enter(Playing.self)
               isFingerOnPaddle = true
             }
             
         case is Playing:
-            
           let touch = touches.first
           let touchLocation = touch!.location(in: self)
           if let body = physicsWorld.body(at: touchLocation) {
@@ -537,12 +564,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         default:
           break
         }
-        
-        //click button
-        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //Updating paddle position relative to the touch
         if isFingerOnPaddle {
           let touch = touches.first
           let touchLocation = touch!.location(in: self)
@@ -568,17 +593,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     //MARK: Helpers
-    
     @objc func backButtonPressed(_ sender: UIButton!){
         catalogTouched = false
         catalogview.isHidden = true
     }
     
+    //Background buttons pressed
     @objc func glodokPressed(_ sender: UIButton!) {
         print("pressed Glodok")
         borderBg.texture = SKTexture(imageNamed: "glodok.png")
     }
-    
     @objc func suryakencanaPressed(_ sender: UIButton!) {
         borderBg.texture = SKTexture(imageNamed: "suryakencana.png")
     }
@@ -586,7 +610,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         borderBg.texture = SKTexture(imageNamed: "malioboro.png")
     }
     
-    
+    //Paddle buttons pressed
     @objc func pastelPressed(_ sender: UIButton!) {
         paddleBg.texture = SKTexture(imageNamed: "pastel")
     }
@@ -598,7 +622,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    
+    //Ball buttons pressed
     @objc func ondeOndePressed(_ sender: UIButton!) {
         ballBg.texture = SKTexture(imageNamed: "ondeonde.png")
     }
@@ -609,14 +633,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ballBg.texture = SKTexture(imageNamed: "serabi.png")
     }
     
+    //Activating catalog view
     func goToCatalogButton(){
         let catalogButton = SKSpriteNode(imageNamed: "catalogButton.png")
         catalogButton.name = "catalogButton"
         catalogButton.size = CGSize(width: 120, height: 120)
         catalogButton.position = CGPoint(x: frame.width * 0.11, y: frame.height * 0.92)
+        catalogButton.zPosition = 5
         addChild(catalogButton)
     }
     
+    //Breaking block actions
     func breakBlock(_ node: SKNode){
         let particles = SKEmitterNode(fileNamed: "BrokenPlatform")!
         particles.position = node.position
@@ -627,11 +654,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         node.removeFromParent()
     }
     
+    //Randomizer for the ball's direction
     func randomFloat(from:CGFloat, to:CGFloat) -> CGFloat {
       let rand:CGFloat = CGFloat(Float(arc4random()) / 0xFFFFFFFF)
       return (rand) * (to - from) + from
     }
     
+    //Checking win state
     func isGameWon() -> Bool {
       var numberOfBricks = 0
       self.enumerateChildNodes(withName: BlockCategoryName) {
@@ -644,7 +673,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
 
 
-//MARK: Game States
+//MARK: Game State Classes
 class WaitingForTap: GKState {
   unowned let scene: GameScene
   
@@ -691,6 +720,8 @@ class Playing: GKState {
   }
   
   override func update(deltaTime seconds: TimeInterval) {
+    //Ball behaviours
+    
     let ball = scene.childNode(withName: BallCategoryName) as! SKSpriteNode
     
     let maxSpeed: CGFloat = 400.0
@@ -719,6 +750,7 @@ class Playing: GKState {
     return stateClass is GameOver.Type
   }
   
+    //randomizing direction of the ball
   func randomDirection() -> CGFloat {
     let speedFactor: CGFloat = 3.0
     if scene.randomFloat(from: 0.0, to: 100.0) >= 50 {
@@ -751,13 +783,16 @@ class GameOver: GKState {
   }
 }
 
+//Presenting scene
 if let scene = GameScene(fileNamed: "GameScene") {
     // Set the scale mode to scale to fit the window
     scene.scaleMode = .aspectFill
     catalogview.backgroundColor = .white
     catalogview.addSubview(backButton)
-    //add catalog
+    
+    //add catalog view
     sceneView.addSubview(catalogview)
+    
     // Present the scene
     sceneView.presentScene(scene)
 }
