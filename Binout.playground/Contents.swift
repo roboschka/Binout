@@ -307,7 +307,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //Game States
     lazy var gameState: GKStateMachine = GKStateMachine(states: [
-    WaitingForTap(scene: self),
+    WaitingForClick(scene: self),
     Playing(scene: self),
     GameOver(scene: self)])
 
@@ -328,9 +328,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //MARK: Music/SFX
     let blipSound = SKAction.playSoundFileNamed("ballbounce", waitForCompletion: false)
     let blipPaddleSound = SKAction.playSoundFileNamed("paddleBounce", waitForCompletion: false)
-    let bambooBreakSound = SKAction.playSoundFileNamed("BambooBreak", waitForCompletion: false)
+    let bambooBreakSound = SKAction.playSoundFileNamed("BlockBreak", waitForCompletion: false)
+    
+    /* Song snippet courtesy of "r1dz instrumental" arrangement of "Gundul-gundul Pacul" (https://www.youtube.com/watch?v=bIsADTdkHwM&t=0s) */
     let gameWonSound = SKAction.playSoundFileNamed("winning", waitForCompletion: false)
     let gameOverSound = SKAction.playSoundFileNamed("gameover", waitForCompletion: false)
+    
     
     func didBegin(_ contact: SKPhysicsContact) {
         var firstBody: SKPhysicsBody
@@ -395,7 +398,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         backButton.setTitle("Back", for: .normal)
         backButton.backgroundColor = .black
         backButton.tintColor = .white
-        backButton.layer.cornerRadius = 20
+        backButton.layer.cornerRadius = 5
         backButton.addTarget(self, action: #selector(backButtonPressed(_:)), for: .touchUpInside)
                 
         goToCatalogButton()
@@ -518,7 +521,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(gameMessage)
         
         //Enter first state of the game
-        gameState.enter(WaitingForTap.self)
+        gameState.enter(WaitingForClick.self)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -528,7 +531,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     //Press the catalog button
                     if node.name == "catalogButton" {
                         if node.contains(touch.location(in: self)) {
-                            self.gameState.enter(WaitingForTap.self)
+                            self.gameState.enter(WaitingForClick.self)
                             catalogview.isHidden = false
                             self.catalogTouched = true
                         }
@@ -539,7 +542,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         //Game state settings
         switch gameState.currentState {
-        case is WaitingForTap:
+        case is WaitingForClick:
             //Continue playing if not on catalogue
             if !catalogTouched {
               gameState.enter(Playing.self)
@@ -674,7 +677,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
 
 //MARK: Game State Classes
-class WaitingForTap: GKState {
+class WaitingForClick: GKState {
   unowned let scene: GameScene
   
   init(scene: SKScene) {
@@ -713,7 +716,7 @@ class Playing: GKState {
   }
   
   override func didEnter(from previousState: GKState?) {
-    if previousState is WaitingForTap {
+    if previousState is WaitingForClick {
       let ball = scene.childNode(withName: BallCategoryName) as! SKSpriteNode
       ball.physicsBody!.applyImpulse(CGVector(dx: randomDirection(), dy: randomDirection()))
     }
@@ -779,7 +782,7 @@ class GameOver: GKState {
   }
   
   override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-    return stateClass is WaitingForTap.Type
+    return stateClass is WaitingForClick.Type
   }
 }
 
